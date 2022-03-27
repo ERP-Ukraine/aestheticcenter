@@ -1,0 +1,39 @@
+version: "3.2"
+
+volumes:
+  pg10-odoo:
+    driver: local
+
+  odoo-data:
+    driver: local
+  odoo-devc-data:
+    driver: local
+
+services:
+  pg10odoo:
+    image: postgres:10.1
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    ports:
+      - "5555:5432"
+    volumes:
+      - pg10-odoo:/var/lib/postgresql/data/
+
+  saas-odoo:
+    tty: true
+    image: erpukraine/custom:odoo-${O_MAJOR:-15}.0ee-saas-erpu-latest
+    environment:
+      - PASSWORD=odoo
+      - USER=odoo
+      - HOST=pg10odoo
+    depends_on:
+      - pg10odoo
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo/
+      - odoo-devc-data:/home/vscode/.local/share/Odoo
+      - ./:/mnt/extra-addons
+      - ./odoo-devc.conf:/etc/odoo/odoo.conf
+    # command: odoo --db_host=pg10odoo --log-level=info --workers=0 -w odoo -r odoo

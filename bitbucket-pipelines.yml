@@ -1,0 +1,93 @@
+image: erpukraine/pipelines:default-image-2
+
+clone:
+  depth: 1
+
+pipelines:
+  default:
+    - step:
+        name: Unit Tests
+        script:
+          - ./tests.sh
+        services:
+          - postgres
+          - docker
+  branches:
+    master:
+      - step:
+          name: Build and Push
+          services:
+            - docker
+          script:
+            - ./setup.sh
+            - ./build.sh
+      - step:
+          name: Deploy
+          deployment: production
+          trigger: manual
+          services:
+            - docker
+          script:
+            - ./setup.sh
+            - >
+              ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN,"
+              -e O_MAJOR=$O_MAJOR
+              -e BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+              -e BITBUCKET_REPO_SLUG=$BITBUCKET_REPO_SLUG
+              -e DOCKER_USERNAME=$DOCKER_USERNAME
+              -e DOCKER_PASSWORD=$DOCKER_PASSWORD
+              -e WORKERS_COUNT=${WORKERS_COUNT:-1}
+              -e DOMAIN=$DOMAIN
+    staging:
+      - step:
+          name: Build and Push
+          services:
+            - docker
+          script:
+            - export WITH_TEST_DB="yes"
+            - ./setup.sh
+            - ./build.sh
+      - step:
+          name: Deploy
+          deployment: staging
+          trigger: manual
+          services:
+            - docker
+          script:
+            - ./setup.sh
+            - >
+              ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN,"
+              -e O_MAJOR=$O_MAJOR
+              -e BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+              -e BITBUCKET_REPO_SLUG=$BITBUCKET_REPO_SLUG
+              -e DOCKER_USERNAME=$DOCKER_USERNAME
+              -e DOCKER_PASSWORD=$DOCKER_PASSWORD
+              -e WORKERS_COUNT=1
+              -e DOMAIN=$DOMAIN
+              -e WITH_TEST_DB="yes"
+  custom:
+    update-addons-staging:
+      - variables:
+          - name: ADDONS
+      - step:
+          script:
+            - ./setup.sh
+            - ssh $PVE_DOMAIN "./service_exec_no_tty.sh ${BITBUCKET_REPO_SLUG}-staging${O_MAJOR} odoo --no-http --stop-after-init -u $ADDONS"
+          services:
+            - docker
+    update-addons-production:
+      - variables:
+          - name: ADDONS
+      - step:
+          script:
+            - ./setup.sh
+            - ssh $PVE_DOMAIN "./service_exec_no_tty.sh ${BITBUCKET_REPO_SLUG}${O_MAJOR} odoo --no-http --stop-after-init -u $ADDONS"
+          services:
+            - docker
+definitions:
+  services:
+    postgres:
+      image: postgres:10
+      environment:
+        POSTGRES_PASSWORD: odoo
+        POSTGRES_USER: odoo
