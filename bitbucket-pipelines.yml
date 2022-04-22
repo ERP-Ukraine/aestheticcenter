@@ -15,20 +15,21 @@ pipelines:
   branches:
     master:
       - step:
-          name: Build and Push
-          services:
-            - docker
+          name: Unit Tests
           script:
-            - ./setup.sh
-            - ./build.sh
+            - ./tests.sh
+          services:
+            - postgres
+            - docker
       - step:
-          name: Deploy
+          name: Deploy to Production
           deployment: production
           trigger: manual
           services:
             - docker
           script:
             - ./setup.sh
+            - ./build.sh
             - >
               ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN,"
               -e O_MAJOR=$O_MAJOR
@@ -40,21 +41,22 @@ pipelines:
               -e DOMAIN=$DOMAIN
     staging:
       - step:
-          name: Build and Push
+          name: Unit Tests
+          script:
+            - ./tests.sh
+          services:
+            - postgres
+            - docker
+      - step:
+          name: Deploy to Staging
+          deployment: staging
+          trigger: manual
           services:
             - docker
           script:
             - export WITH_TEST_DB="yes"
             - ./setup.sh
             - ./build.sh
-      - step:
-          name: Deploy
-          deployment: staging
-          trigger: manual
-          services:
-            - docker
-          script:
-            - ./setup.sh
             - >
               ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN,"
               -e O_MAJOR=$O_MAJOR
@@ -72,7 +74,7 @@ pipelines:
       - step:
           script:
             - ./setup.sh
-            - ssh $PVE_DOMAIN "./service_exec_no_tty.sh ${BITBUCKET_REPO_SLUG}-staging${O_MAJOR} odoo --no-http --stop-after-init -u $ADDONS"
+            - ssh $PVE_DOMAIN "./tools/service_exec_no_tty.sh ${BITBUCKET_REPO_SLUG}-staging${O_MAJOR} odoo --no-http --stop-after-init -u $ADDONS"
           services:
             - docker
     update-addons-production:
@@ -81,7 +83,7 @@ pipelines:
       - step:
           script:
             - ./setup.sh
-            - ssh $PVE_DOMAIN "./service_exec_no_tty.sh ${BITBUCKET_REPO_SLUG}${O_MAJOR} odoo --no-http --stop-after-init -u $ADDONS"
+            - ssh $PVE_DOMAIN "./tools/service_exec_no_tty.sh ${BITBUCKET_REPO_SLUG}${O_MAJOR} odoo --no-http --stop-after-init -u $ADDONS"
           services:
             - docker
 definitions:
