@@ -39,6 +39,7 @@ pipelines:
               -e DOCKER_PASSWORD=$DOCKER_PASSWORD
               -e WORKERS_COUNT=${WORKERS_COUNT:-1}
               -e DOMAIN=$DOMAIN
+              -e NAKED_DOMAIN=$NAKED_DOMAIN
     staging:
       - step:
           name: Unit Tests
@@ -65,7 +66,6 @@ pipelines:
               -e DOCKER_USERNAME=$DOCKER_USERNAME
               -e DOCKER_PASSWORD=$DOCKER_PASSWORD
               -e WORKERS_COUNT=1
-              -e DOMAIN=$DOMAIN
               -e WITH_TEST_DB="yes"
   custom:
     update-addons-staging:

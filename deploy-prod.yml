@@ -61,7 +61,6 @@
           traefik.webtest.frontend.rule: "Host:{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua"
           traefik.webtest.frontend.redirect.regex: "^(https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua/website/tests|https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua/website/info|https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua/web/database/[^l].*)"
           traefik.webtest.frontend.redirect.replacement: "https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua"
-          traefik.webtest.frontend.redirect.permanent: "true"
           traefik.webtest.port: "8069"
           traefik.webtest.frontend.entryPoints: "https"
       when: WITH_TEST_DB is defined and WITH_TEST_DB == "yes"
@@ -73,8 +72,6 @@
             value: "^(https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua/website/tests|https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua/website/info|https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua/web/database/[^l].*)"
           - key: "traefik.http.middlewares.{{ service }}-webtest-redirect.redirectregex.replacement"
             value: "https://{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua"
-          - key: "traefik.http.middlewares.{{ service }}-webtest-redirect.redirectregex.permanent"
-            value: "true"
           - key: "traefik.http.routers.{{ service }}-webtest.rule"
             value: "Host(`{{ BITBUCKET_REPO_SLUG }}-staging.erp.co.ua`)"
           - key: "traefik.http.routers.{{ service }}-webtest.middlewares"
@@ -93,7 +90,6 @@
           traefik.web.frontend.rule: "Host:{{ BITBUCKET_REPO_SLUG }}.erp.co.ua"
           traefik.web.frontend.redirect.regex: "^(https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua/website/tests|https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua/website/info|https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua/web/database/[^l].*)"
           traefik.web.frontend.redirect.replacement: "https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua"
-          traefik.web.frontend.redirect.permanent: "true"
           traefik.web.port: "8069"
           traefik.web.frontend.entryPoints: "https"
       when: WITH_TEST_DB is undefined or WITH_TEST_DB != "yes"
@@ -105,8 +101,6 @@
             value: "^(https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua/website/tests|https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua/website/info|https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua/web/database/[^l].*)"
           - key: "traefik.http.middlewares.{{ service }}-web-redirect.redirectregex.replacement"
             value: "https://{{ BITBUCKET_REPO_SLUG }}.erp.co.ua"
-          - key: "traefik.http.middlewares.{{ service }}-web-redirect.redirectregex.permanent"
-            value: "true"
           - key: "traefik.http.routers.{{ service }}-web.rule"
             value: "Host(`{{ BITBUCKET_REPO_SLUG }}.erp.co.ua`)"
           - key: "traefik.http.routers.{{ service }}-web.middlewares"
@@ -125,7 +119,6 @@
           traefik.webdom.frontend.rule: "Host:{{DOMAIN}}"
           traefik.webdom.frontend.redirect.regex: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
           traefik.webdom.frontend.redirect.replacement: "https://{{DOMAIN}}/"
-          traefik.webdom.frontend.redirect.permanent: "true"
           traefik.webdom.port: "8069"
           traefik.webdom.frontend.entryPoints: "https"
       when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN is defined and DOMAIN != ""
@@ -137,8 +130,6 @@
             value: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
           - key: "traefik.http.middlewares.{{ service }}-webdom-redirect.redirectregex.replacement"
             value: "https://{{DOMAIN}}/"
-          - key: "traefik.http.middlewares.{{ service }}-webdom-redirect.redirectregex.permanent"
-            value: "true"
           - key: "traefik.http.routers.{{ service }}-webdom.rule"
             value: "Host(`{{DOMAIN}}`)"
           - key: "traefik.http.routers.{{ service }}-webdom.middlewares"
@@ -151,6 +142,33 @@
             value: "8069"
       when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN is defined and DOMAIN != ""
 
+    - name: Setup naked domain redirect traefik v1 labels
+      set_fact:
+        naked_domain_traefik_v1_labels:
+          traefik.webnakeddom.frontend.rule: "Host:{{NAKED_DOMAIN}}"
+          traefik.webnakeddom.frontend.redirect.regex: "^(https://{{NAKED_DOMAIN}}/(.*)"
+          traefik.webnakeddom.frontend.redirect.replacement: "https://{{DOMAIN}}/$2"
+          traefik.webnakeddom.port: "8069"
+          traefik.webnakeddom.frontend.entryPoints: "https"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN is defined and DOMAIN != "" and NAKED_DOMAIN is defined and NAKED_DOMAIN != ""
+
+    - name: Setup naked domain traefik v2 labels
+      set_fact:
+        naked_domain_traefik_v2_labels:
+          - key: "traefik.http.middlewares.{{ service }}-webnakeddom-redirect.redirectregex.regex"
+            value: "^(https://{{NAKED_DOMAIN}}/(.*)"
+          - key: "traefik.http.middlewares.{{ service }}-webnakeddom-redirect.redirectregex.replacement"
+            value: "https://{{DOMAIN}}/$$1"
+          - key: "traefik.http.routers.{{ service }}-webnakeddom.rule"
+            value: "Host(`{{NAKED_DOMAIN}}`)"
+          - key: "traefik.http.routers.{{ service }}-webnakeddom.service"
+            value: "{{ service }}-webnakeddom"
+          - key: "traefik.http.routers.{{ service }}-webnakeddom.entryPoints"
+            value: "websecure"
+          - key: "traefik.http.services.{{ service }}-webnakeddom.loadbalancer.server.port"
+            value: "8069"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN is defined and DOMAIN != "" and NAKED_DOMAIN is defined and NAKED_DOMAIN != ""
+
     - name: Setup all traefik labels
       set_fact: >-
         traefik_labels="{{
@@ -162,6 +180,8 @@
           | combine(production_traefik_v2_labels | default([]) | items2dict)
           | combine(domain_traefik_v1_labels | default({}))
           | combine(domain_traefik_v2_labels | default([]) | items2dict)
+          | combine(naked_domain_traefik_v1_labels | default({}))
+          | combine(naked_domain_traefik_v2_labels | default([]) | items2dict)
         }}"
 
     - name: Deploy Odoo Service

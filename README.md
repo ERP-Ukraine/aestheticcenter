@@ -7,5 +7,6 @@ Environment variables on repository level.
 - `SAAS_RELEASE` - Odoo release version of SaaS image. Default to `O_RELEASE`.
 - `WORKERS_COUNT` - number of scaled docker services. Default 1.
 - `DOMAIN` - set custom domain. It has to be configured with CNAME reference before enabling here.
+- `NAKED_DOMAIN` - if set will add redirect from `NAKED_DOMAIN` to `DOMAIN`.
 
 Create staging branch to deploy staging service.
