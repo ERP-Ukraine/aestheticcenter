@@ -158,7 +158,7 @@
           - key: "traefik.http.middlewares.{{ service }}-webnakeddom-redirect.redirectregex.regex"
             value: "^(https://{{NAKED_DOMAIN}}/(.*)"
           - key: "traefik.http.middlewares.{{ service }}-webnakeddom-redirect.redirectregex.replacement"
-            value: "https://{{DOMAIN}}/$$1"
+            value: "https://{{DOMAIN}}/$1"
           - key: "traefik.http.routers.{{ service }}-webnakeddom.rule"
             value: "Host(`{{NAKED_DOMAIN}}`)"
           - key: "traefik.http.routers.{{ service }}-webnakeddom.service"
