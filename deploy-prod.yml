@@ -146,7 +146,7 @@
       set_fact:
         naked_domain_traefik_v1_labels:
           traefik.webnakeddom.frontend.rule: "Host:{{NAKED_DOMAIN}}"
-          traefik.webnakeddom.frontend.redirect.regex: "^(https://{{NAKED_DOMAIN}}/(.*)"
+          traefik.webnakeddom.frontend.redirect.regex: "^https://{{NAKED_DOMAIN}}/(.*)"
           traefik.webnakeddom.frontend.redirect.replacement: "https://{{DOMAIN}}/$2"
           traefik.webnakeddom.port: "8069"
           traefik.webnakeddom.frontend.entryPoints: "https"
