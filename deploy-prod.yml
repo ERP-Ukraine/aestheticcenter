@@ -156,7 +156,7 @@
       set_fact:
         naked_domain_traefik_v2_labels:
           - key: "traefik.http.middlewares.{{ service }}-webnakeddom-redirect.redirectregex.regex"
-            value: "^(https://{{NAKED_DOMAIN}}/(.*)"
+            value: "^https://{{NAKED_DOMAIN}}/(.*)"
           - key: "traefik.http.middlewares.{{ service }}-webnakeddom-redirect.redirectregex.replacement"
             value: "https://{{DOMAIN}}/$1"
           - key: "traefik.http.routers.{{ service }}-webnakeddom.rule"
