@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 set -o errexit
 
-if [ ! -f .env ]
-then
-    export $(cat .env | xargs)
-fi
+export $(cat .env | xargs)
 
 git submodule init
 git submodule update --remote
