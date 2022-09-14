@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -o errexit
 
+if [ ! -f .env ]
+then
+    export $(cat .env | xargs)
+fi
+
 git submodule init
 git submodule update --remote
 export REPO="erpukraine/custom" PROJECT="${BITBUCKET_REPO_SLUG}" VERSION="v1.0"
