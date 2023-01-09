@@ -18,7 +18,11 @@ git submodule update --remote
 
 sed -i -e "s/without_demo =.*/without_demo = True/g" odoo.conf
 sed -i -e "s/^admin_passwd.*/admin_passwd = ${ADMIN_PASSWORD}/" odoo.conf
-sed -i -e "s/^db_host.*/db_host = ${DB_HOST}/" odoo.conf
+if [ $O_MAJOR -gt "15" ]; then
+    sed -i -e "s/^db_host.*/db_host = ${DB_HOST13}/" odoo.conf
+else
+    sed -i -e "s/^db_host.*/db_host = ${DB_HOST}/" odoo.conf
+fi
 sed -i -e "s/^db_user.*/db_user = ${DB_USER}/" odoo.conf
 sed -i -e "s/^db_port.*/db_port = ${DB_PORT}/" odoo.conf
 sed -i -e "s/^db_password.*/db_password = ${DB_PASSWORD}/" odoo.conf
