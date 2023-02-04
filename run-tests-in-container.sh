@@ -6,7 +6,7 @@ PRP='\033[0;35m'
 NC='\033[0m'
 
 DBNAME="odoo-tests"
-DBHOST="pg10odoo"
+DBHOST="pg13odoo"
 
 if [[ $1 == "rm" ]]; then
     if psql -lqt | cut -d \| -f 1 | grep -qw "${DBNAME}"; then

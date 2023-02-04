@@ -89,7 +89,7 @@ pipelines:
 definitions:
   services:
     postgres:
-      image: postgres:10
+      image: postgres:13
       environment:
         POSTGRES_PASSWORD: odoo
         POSTGRES_USER: odoo
