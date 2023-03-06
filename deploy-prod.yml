@@ -148,7 +148,7 @@
         secrets:
           - secret_name: gcp-service-account.json
         env:
-          ODOO_MAX_HTTP_THREADS: "12"
+          ODOO_MAX_HTTP_THREADS: "25"
         mounts:
           - source: "{{ volume_path }}"
             target: "/var/lib/odoo"
