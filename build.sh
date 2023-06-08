@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+export $(cat .env | xargs)
+
 # Compute base image
 REPO="erpukraine/custom"
 IMAGE_TAG="odoo-${O_MAJOR}.0ee-saas-erpu"
