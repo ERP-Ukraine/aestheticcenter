@@ -22,6 +22,13 @@ pipelines:
             - postgres
             - docker
       - step:
+          name: Build Production Image
+          services:
+            - docker
+          script:
+            - ./setup.sh
+            - ./build.sh
+      - step:
           name: Deploy to Production
           deployment: production
           trigger: manual
@@ -29,7 +36,6 @@ pipelines:
             - docker
           script:
             - ./setup.sh
-            - ./build.sh
             - >
               ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN,"
               -e O_MAJOR=$O_MAJOR
@@ -49,6 +55,14 @@ pipelines:
             - postgres
             - docker
       - step:
+          name: Build Staging Image
+          services:
+            - docker
+          script:
+            - export WITH_TEST_DB="yes"
+            - ./setup.sh
+            - ./build.sh
+      - step:
           name: Deploy to Staging
           deployment: staging
           trigger: manual
@@ -57,7 +71,6 @@ pipelines:
           script:
             - export WITH_TEST_DB="yes"
             - ./setup.sh
-            - ./build.sh
             - >
               ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN,"
               -e O_MAJOR=$O_MAJOR
