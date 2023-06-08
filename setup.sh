@@ -7,6 +7,8 @@ echo $KNOWN_PVE | base64 --decode >> ~/.ssh/known_hosts
 (echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin)
 echo "Environment configured"
 
+export $(cat .env | xargs)
+
 # Use Ansible config via env vars because build dir is writable
 export ANSIBLE_PYTHON_INTERPRETER="auto_legacy_silent"
 export ANSIBLE_TRANSPORT="ssh"
