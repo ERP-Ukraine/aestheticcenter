@@ -122,6 +122,120 @@
             value: "8069"
       when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN is defined and DOMAIN != "" and NAKED_DOMAIN is defined and NAKED_DOMAIN != ""
 
+    - name: Setup custom domain2 traefik v2 labels
+      set_fact:
+        domain2_traefik_v2_labels:
+          - key: "traefik.http.middlewares.{{ service }}-webdom2-redirect.redirectregex.regex"
+            value: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
+          - key: "traefik.http.middlewares.{{ service }}-webdom2-redirect.redirectregex.replacement"
+            value: "https://{{DOMAIN2}}/"
+          - key: "traefik.http.routers.{{ service }}-webdom2.rule"
+            value: "Host(`{{DOMAIN2}}`)"
+          - key: "traefik.http.routers.{{ service }}-webdom2.middlewares"
+            value: "cloudflarewarp@file,{{ service }}-webdom2-redirect@docker,ratelimit50@file,fw-proto@file,gzip@file"
+          - key: "traefik.http.routers.{{ service }}-webdom2.service"
+            value: "{{ service }}-webdom2"
+          - key: "traefik.http.routers.{{ service }}-webdom2.entryPoints"
+            value: "websecure"
+          - key: "traefik.http.services.{{ service }}-webdom2.loadbalancer.server.port"
+            value: "8069"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN2 is defined and DOMAIN2 != ""
+
+    - name: Setup custom domain3 traefik v2 labels
+      set_fact:
+        domain3_traefik_v2_labels:
+          - key: "traefik.http.middlewares.{{ service }}-webdom3-redirect.redirectregex.regex"
+            value: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
+          - key: "traefik.http.middlewares.{{ service }}-webdom3-redirect.redirectregex.replacement"
+            value: "https://{{DOMAIN3}}/"
+          - key: "traefik.http.routers.{{ service }}-webdom3.rule"
+            value: "Host(`{{DOMAIN3}}`)"
+          - key: "traefik.http.routers.{{ service }}-webdom3.middlewares"
+            value: "cloudflarewarp@file,{{ service }}-webdom3-redirect@docker,ratelimit50@file,fw-proto@file,gzip@file"
+          - key: "traefik.http.routers.{{ service }}-webdom3.service"
+            value: "{{ service }}-webdom3"
+          - key: "traefik.http.routers.{{ service }}-webdom3.entryPoints"
+            value: "websecure"
+          - key: "traefik.http.services.{{ service }}-webdom3.loadbalancer.server.port"
+            value: "8069"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN3 is defined and DOMAIN3 != ""
+
+    - name: Setup custom domain4 traefik v2 labels
+      set_fact:
+        domain4_traefik_v2_labels:
+          - key: "traefik.http.middlewares.{{ service }}-webdom4-redirect.redirectregex.regex"
+            value: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
+          - key: "traefik.http.middlewares.{{ service }}-webdom4-redirect.redirectregex.replacement"
+            value: "https://{{DOMAIN4}}/"
+          - key: "traefik.http.routers.{{ service }}-webdom4.rule"
+            value: "Host(`{{DOMAIN4}}`)"
+          - key: "traefik.http.routers.{{ service }}-webdom4.middlewares"
+            value: "cloudflarewarp@file,{{ service }}-webdom4-redirect@docker,ratelimit50@file,fw-proto@file,gzip@file"
+          - key: "traefik.http.routers.{{ service }}-webdom4.service"
+            value: "{{ service }}-webdom4"
+          - key: "traefik.http.routers.{{ service }}-webdom4.entryPoints"
+            value: "websecure"
+          - key: "traefik.http.services.{{ service }}-webdom4.loadbalancer.server.port"
+            value: "8069"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN4 is defined and DOMAIN4 != ""
+
+    - name: Setup custom domain5 traefik v2 labels
+      set_fact:
+        domain5_traefik_v2_labels:
+          - key: "traefik.http.middlewares.{{ service }}-webdom5-redirect.redirectregex.regex"
+            value: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
+          - key: "traefik.http.middlewares.{{ service }}-webdom5-redirect.redirectregex.replacement"
+            value: "https://{{DOMAIN5}}/"
+          - key: "traefik.http.routers.{{ service }}-webdom5.rule"
+            value: "Host(`{{DOMAIN5}}`)"
+          - key: "traefik.http.routers.{{ service }}-webdom5.middlewares"
+            value: "cloudflarewarp@file,{{ service }}-webdom5-redirect@docker,ratelimit50@file,fw-proto@file,gzip@file"
+          - key: "traefik.http.routers.{{ service }}-webdom5.service"
+            value: "{{ service }}-webdom5"
+          - key: "traefik.http.routers.{{ service }}-webdom5.entryPoints"
+            value: "websecure"
+          - key: "traefik.http.services.{{ service }}-webdom5.loadbalancer.server.port"
+            value: "8069"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN5 is defined and DOMAIN5 != ""
+
+    - name: Setup custom domain6 traefik v2 labels
+      set_fact:
+        domain6_traefik_v2_labels:
+          - key: "traefik.http.middlewares.{{ service }}-webdom6-redirect.redirectregex.regex"
+            value: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
+          - key: "traefik.http.middlewares.{{ service }}-webdom6-redirect.redirectregex.replacement"
+            value: "https://{{DOMAIN6}}/"
+          - key: "traefik.http.routers.{{ service }}-webdom6.rule"
+            value: "Host(`{{DOMAIN6}}`)"
+          - key: "traefik.http.routers.{{ service }}-webdom6.middlewares"
+            value: "cloudflarewarp@file,{{ service }}-webdom6-redirect@docker,ratelimit60@file,fw-proto@file,gzip@file"
+          - key: "traefik.http.routers.{{ service }}-webdom6.service"
+            value: "{{ service }}-webdom6"
+          - key: "traefik.http.routers.{{ service }}-webdom6.entryPoints"
+            value: "websecure"
+          - key: "traefik.http.services.{{ service }}-webdom6.loadbalancer.server.port"
+            value: "8069"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN6 is defined and DOMAIN6 != ""
+
+    - name: Setup custom domain7 traefik v2 labels
+      set_fact:
+        domain7_traefik_v2_labels:
+          - key: "traefik.http.middlewares.{{ service }}-webdom7-redirect.redirectregex.regex"
+            value: "^(https://{{DOMAIN}}/website/tests|https://{{DOMAIN}}/website/info|https://{{DOMAIN}}/web/database/[^l].*)"
+          - key: "traefik.http.middlewares.{{ service }}-webdom7-redirect.redirectregex.replacement"
+            value: "https://{{DOMAIN7}}/"
+          - key: "traefik.http.routers.{{ service }}-webdom7.rule"
+            value: "Host(`{{DOMAIN7}}`)"
+          - key: "traefik.http.routers.{{ service }}-webdom7.middlewares"
+            value: "cloudflarewarp@file,{{ service }}-webdom7-redirect@docker,ratelimit60@file,fw-proto@file,gzip@file"
+          - key: "traefik.http.routers.{{ service }}-webdom7.service"
+            value: "{{ service }}-webdom7"
+          - key: "traefik.http.routers.{{ service }}-webdom7.entryPoints"
+            value: "websecure"
+          - key: "traefik.http.services.{{ service }}-webdom7.loadbalancer.server.port"
+            value: "8069"
+      when: (WITH_TEST_DB is undefined or WITH_TEST_DB != "yes") and DOMAIN7 is defined and DOMAIN7 != ""
+
     - name: Setup all traefik labels
       set_fact: >-
         traefik_labels="{{
@@ -130,6 +244,12 @@
           | combine(production_traefik_v2_labels | default([]) | items2dict)
           | combine(domain_traefik_v2_labels | default([]) | items2dict)
           | combine(naked_domain_traefik_v2_labels | default([]) | items2dict)
+          | combine(domain2_traefik_v2_labels | default([]) | items2dict)
+          | combine(domain3_traefik_v2_labels | default([]) | items2dict)
+          | combine(domain4_traefik_v2_labels | default([]) | items2dict)
+          | combine(domain5_traefik_v2_labels | default([]) | items2dict)
+          | combine(domain6_traefik_v2_labels | default([]) | items2dict)
+          | combine(domain7_traefik_v2_labels | default([]) | items2dict)
         }}"
 
     - name: Deploy Odoo Service

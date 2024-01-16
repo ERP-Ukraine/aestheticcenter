@@ -45,6 +45,12 @@ pipelines:
               -e DOCKER_PASSWORD=$DOCKER_PASSWORD
               -e WORKERS_COUNT=${WORKERS_COUNT:-1}
               -e DOMAIN=$DOMAIN
+              -e DOMAIN2=$DOMAIN2
+              -e DOMAIN3=$DOMAIN3
+              -e DOMAIN4=$DOMAIN4
+              -e DOMAIN5=$DOMAIN5
+              -e DOMAIN6=$DOMAIN6
+              -e DOMAIN7=$DOMAIN7
               -e NAKED_DOMAIN=$NAKED_DOMAIN
     staging:
       - step:

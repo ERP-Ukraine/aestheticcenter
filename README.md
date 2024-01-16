@@ -8,5 +8,6 @@ Environment variables on repository level.
 - `WORKERS_COUNT` - number of scaled docker services. Default 1.
 - `DOMAIN` - set custom domain. It has to be configured with CNAME reference before enabling here.
 - `NAKED_DOMAIN` - if set will add redirect from `NAKED_DOMAIN` to `DOMAIN`.
+- `DOMAIN2` .. `DOMAIN7` - set extra custom domains.
 
 Create staging branch to deploy staging service.
