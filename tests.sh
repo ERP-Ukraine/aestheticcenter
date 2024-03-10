@@ -15,7 +15,7 @@ echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdi
 sed -i -e 's/without_demo = True/without_demo = False/g' odoo.conf
 sed -i -e 's/use_redis = .*/use_redis = False/g' odoo.conf
 sed -i -e "s/db_host =.*/db_host = host.docker.internal/g" odoo.conf
-docker build --build-arg SAAS_IMG=erpukraine/custom:odoo-${O_MAJOR}.0ee-saas-erpu-latest -t ${IMAGE_NAME} .
+docker build --build-arg SAAS_IMG=erpukraine/odoo-ee-erpu-saas:${O_MAJOR}.0-latest -t ${IMAGE_NAME} .
 mkdir ${BITBUCKET_CLONE_DIR}/data && chmod 777 ${BITBUCKET_CLONE_DIR}/data
 docker run --rm -t --name=${PROJECT}-${VERSION} \
     --add-host host.docker.internal:${BITBUCKET_DOCKER_HOST_INTERNAL} \

@@ -22,7 +22,7 @@ services:
 
   saas-odoo:
     tty: true
-    image: erpukraine/custom:odoo-${O_MAJOR:-16}.0ee-saas-erpu-latest
+    image: erpukraine/odoo-ee-erpu-saas:${O_MAJOR:-16}.0-latest
     env_file: .env
     environment:
       - PASSWORD=odoo

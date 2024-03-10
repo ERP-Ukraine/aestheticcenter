@@ -4,10 +4,10 @@ set -e
 export $(cat .env | xargs)
 
 # Compute base image
-REPO="erpukraine/custom"
-IMAGE_TAG="odoo-${O_MAJOR}.0ee-saas-erpu"
+REPO="erpukraine/odoo-ee-erpu-saas"
+IMAGE_TAG="${O_MAJOR}.0"
 if [ $O_EDITION = "ce" ]; then
-    IMAGE_TAG="odoo-${O_MAJOR}.0-saas-erpu"
+    REPO="erpukraine/odoo-erpu-saas"
 fi
 SAAS_IMG=${REPO}:${IMAGE_TAG}-${SAAS_RELEASE}
 
