@@ -1,4 +1,10 @@
 #!/bin/sh
+
+if [[ $ERPUSAAS_DEPLOY_SECRET != "" ]]; then
+    echo "ERPU SaaS deploy enabled. Exiting..."
+    exit 0
+fi
+
 set -e
 
 export $(cat .env | xargs)

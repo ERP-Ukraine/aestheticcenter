@@ -1,6 +1,11 @@
 #!/bin/sh
 # Setup envirinment
 
+if [[ $ERPUSAAS_DEPLOY_SECRET != "" ]]; then
+    echo "ERPU SaaS deploy enabled. Exiting..."
+    exit 0
+fi
+
 mkdir -p ~/.ssh
 echo $KNOWN_PVE | base64 --decode >> ~/.ssh/known_hosts
 (umask  077 ; echo $SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
