@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ $ERPUSAAS_DEPLOY_SECRET != "" ]]; then
+if [ "$ERPUSAAS_DEPLOY_SECRET" -ne "" ]; then
     echo "ERPU SaaS deploy enabled. Exiting..."
     exit 0
 fi
