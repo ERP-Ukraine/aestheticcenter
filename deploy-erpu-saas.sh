@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 if [ "$ERPUSAAS_DEPLOY_SECRET" != "" ]; then
     echo "ERPU SaaS Deploy"
     if [ "$1" = "production" ]; then
