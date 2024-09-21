@@ -1,7 +1,7 @@
 #!/bin/sh
 # Setup envirinment
 
-if [ "$ERPUSAAS_DEPLOY_SECRET" -ne "" ]; then
+if [ "$ERPUSAAS_DEPLOY_SECRET" != "" ]; then
     echo "ERPU SaaS deploy enabled. Exiting..."
     exit 0
 fi

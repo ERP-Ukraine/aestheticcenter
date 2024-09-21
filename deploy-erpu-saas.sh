@@ -1,15 +1,15 @@
 #!/bin/sh
 
-if [ "$ERPUSAAS_DEPLOY_SECRET" -ne "" ]; then
+if [ "$ERPUSAAS_DEPLOY_SECRET" != "" ]; then
     echo "ERPU SaaS Deploy"
-    if [ "$1" -eq "production" ]; then
+    if [ "$1" == "production" ]; then
         curl --fail -X POST \
             -F 'token=$ERPUSAAS_DEPLOY_SECRET' \
             -F 'commit=$BITBUCKET_COMMIT' \
             -F 'build=$BITBUCKET_BUILD_NUMBER' \
             https://erp.co.ua/erpusaas/project/${ERPUSAAS_DEPLOY_PROJECT}/production/rebuild
     fi
-    if [ "$1" -eq "staging1" ]; then
+    if [ "$1" == "staging1" ]; then
         curl --fail -X POST \
             -F 'token=$ERPUSAAS_DEPLOY_SECRET' \
             -F 'commit=$BITBUCKET_COMMIT' \
@@ -18,7 +18,7 @@ if [ "$ERPUSAAS_DEPLOY_SECRET" -ne "" ]; then
     fi
 else
     echo "Ansible Deploy"
-    if [ "$1" -eq "production" ]; then
+    if [ "$1" == "production" ]; then
         ./setup.sh
         ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN," \
             -e O_MAJOR=$O_MAJOR \
@@ -36,7 +36,7 @@ else
             -e DOMAIN7=$DOMAIN7 \
             -e NAKED_DOMAIN=$NAKED_DOMAIN
     fi
-    if [ "$1" -eq "staging1" ]; then
+    if [ "$1" == "staging1" ]; then
         export WITH_TEST_DB="yes"
         ./setup.sh
         ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN," \
