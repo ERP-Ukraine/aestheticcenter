@@ -6,17 +6,17 @@ if [ "$ERPUSAAS_DEPLOY_SECRET" != "" ]; then
     echo "ERPU SaaS Deploy"
     if [ "$1" = "production" ]; then
         curl --fail -X POST \
-            -F 'token=$ERPUSAAS_DEPLOY_SECRET' \
-            -F 'commit=$BITBUCKET_COMMIT' \
-            -F 'build=$BITBUCKET_BUILD_NUMBER' \
-            https://erp.co.ua/erpusaas/project/${ERPUSAAS_DEPLOY_PROJECT}/production/rebuild
+            -F "token=$ERPUSAAS_DEPLOY_SECRET" \
+            -F "commit=$BITBUCKET_COMMIT" \
+            -F "build=$BITBUCKET_BUILD_NUMBER" \
+            "https://erp.co.ua/erpusaas/project/${ERPUSAAS_DEPLOY_PROJECT}/production/rebuild"
     fi
     if [ "$1" = "staging1" ]; then
         curl --fail -X POST \
-            -F 'token=$ERPUSAAS_DEPLOY_SECRET' \
-            -F 'commit=$BITBUCKET_COMMIT' \
-            -F 'build=$BITBUCKET_BUILD_NUMBER' \
-            https://erp.co.ua/erpusaas/project/${ERPUSAAS_DEPLOY_PROJECT}/staging1/rebuild
+            -F "token=$ERPUSAAS_DEPLOY_SECRET" \
+            -F "commit=$BITBUCKET_COMMIT" \
+            -F "build=$BITBUCKET_BUILD_NUMBER" \
+            "https://erp.co.ua/erpusaas/project/${ERPUSAAS_DEPLOY_PROJECT}/staging1/rebuild"
     fi
 else
     echo "Ansible Deploy"
