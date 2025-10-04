@@ -32,4 +32,4 @@ docker run --rm -t --name=${PROJECT}-${VERSION} \
     -u ${UPDATED_MODULES} --workers=0 -d test-db --stop-after-init --test-enable -w odoo -r odoo \
     --test-tags standard,external,post_install_l10n \
     --db_host host.docker.internal --db-filter=test-db; coverage report \
-    --omit *system_site_packages*,*site-packages*,*dist-packages*,*pyshared*,*enterprise-addons* "
+    --omit */system_site_packages/*,*/site-packages/*,*/dist-packages/*,*/pyshared/*,*/enterprise-addons/* "

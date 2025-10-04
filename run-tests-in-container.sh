@@ -54,4 +54,4 @@ coverage run \
     /usr/bin/odoo -u ${UPDATED_MODULES} --workers=0 -d ${DBNAME} --config=./odoo-devc.conf \
         --stop-after-init --test-enable --test-tags standard,external,post_install_l10n --db-filter=${DBNAME} \
 && coverage report \
-    --omit "*system_site_packages*,*site-packages*,*dist-packages*,*pyshared*,*enterprise-addons*"
+    --omit "*/system_site_packages/*,*/site-packages/*,*/dist-packages/*,*/pyshared/*,*/enterprise-addons/*"
