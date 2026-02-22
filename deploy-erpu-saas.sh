@@ -57,7 +57,7 @@ wait_for_build() {
 trigger_rebuild() {
     local env="$1"
     curl --fail -s -X POST \
-        -F "token=$ERPUSAAS_DEPLOY_SECRET"  \
+        -H "Authorization: Bearer $ERPUSAAS_DEPLOY_SECRET" \
         -F "commit=$BITBUCKET_COMMIT" \
         -F "build=$BITBUCKET_BUILD_NUMBER" \
         "$API_BASE_URL/erpusaas/project/${ERPUSAAS_DEPLOY_PROJECT}/${env}/rebuild"
