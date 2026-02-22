@@ -90,37 +90,6 @@ if [ -n "$ERPUSAAS_DEPLOY_SECRET" ]; then
     wait_for_build "$BUILD_ID" "$ERPUSAAS_DEPLOY_SECRET"
     exit $?
 else
-    echo "Ansible Deploy to $environment"
-
-    # Check ansible dependency
-    if ! command -v ansible-playbook >/dev/null 2>&1; then
-        echo "Error: ansible-playbook not found" >&2
-        exit 1
-    fi
-
-    if [ "$environment" = "staging1" ]; then
-        export WITH_TEST_DB="yes"
-    fi
-
-    ./setup.sh
-
-    ansible-playbook deploy-prod.yml -i "$PVE_DOMAIN," \
-        -e "O_MAJOR=$O_MAJOR" \
-        -e "BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER" \
-        -e "BITBUCKET_REPO_SLUG=$BITBUCKET_REPO_SLUG" \
-        -e "DOCKER_USERNAME=$DOCKER_USERNAME" \
-        -e "DOCKER_PASSWORD=$DOCKER_PASSWORD" \
-        -e "WORKERS_COUNT=${WORKERS_COUNT:-1}" \
-        ${environment:+"staging1" && echo '-e "WITH_TEST_DB=yes"'} \
-        $([ "$environment" = "production" ] && cat <<-EOF
-        -e "DOMAIN=$DOMAIN" \
-        -e "DOMAIN2=$DOMAIN2" \
-        -e "DOMAIN3=$DOMAIN3" \
-        -e "DOMAIN4=$DOMAIN4" \
-        -e "DOMAIN5=$DOMAIN5" \
-        -e "DOMAIN6=$DOMAIN6" \
-        -e "DOMAIN7=$DOMAIN7" \
-        -e "NAKED_DOMAIN=$NAKED_DOMAIN"
-EOF
-        )
+    echo "Deploy secret not set. Skipping ERPU SaaS deployment." >&2
+    exit 1
 fi
