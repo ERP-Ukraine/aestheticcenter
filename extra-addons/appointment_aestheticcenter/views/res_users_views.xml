@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_users_view_form_inherit_appointment_aestheticcenter" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.appointment.aestheticcenter</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']/group[field[@name='role']]" position="after">
+                <group string="Appointments" invisible="not is_portal_user">
+                    <field name="available_for_appointments"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

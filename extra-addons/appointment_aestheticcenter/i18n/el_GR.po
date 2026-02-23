@@ -1,0 +1,79 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* appointment_aestheticcenter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e-20260206\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-23 13:34+0000\n"
+"PO-Revision-Date: 2026-02-23 13:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model,name:appointment_aestheticcenter.model_appointment_type
+msgid "Appointment Type"
+msgstr "Τύπος ραντεβού"
+
+#. module: appointment_aestheticcenter
+#: model_terms:ir.ui.view,arch_db:appointment_aestheticcenter.res_users_view_form_inherit_appointment_aestheticcenter
+msgid "Appointments"
+msgstr "Συναντήσεις"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_res_users__available_for_appointments
+msgid "Available for Appointments"
+msgstr "Διαθέσιμος για Συναντήσεις"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_appointment_type__display_name
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_res_users__display_name
+msgid "Display Name"
+msgstr "Εμφάνιση Ονόματος"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,help:appointment_aestheticcenter.field_res_users__available_for_appointments
+msgid ""
+"Enable to allow this portal user to be selected in Appointments. Internal "
+"users remain available regardless of this option."
+msgstr ""
+"Ενεργοποιήστε το για να μπορεί αυτός ο χρήστης portal να επιλέγεται στις "
+"Συναντήσεις. Οι εσωτερικοί χρήστες παραμένουν διαθέσιμοι ανεξάρτητα από "
+"αυτήν την επιλογή."
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_appointment_type__id
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_res_users__id
+msgid "ID"
+msgstr "Κωδικός"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_res_users__is_portal_user
+msgid "Is Portal User"
+msgstr "Χρήστης Portal"
+
+#. module: appointment_aestheticcenter
+#. odoo-python
+#: code:addons/appointment_aestheticcenter/models/appointment_type.py:0
+msgid ""
+"Only internal users and portal users marked as Available for Appointments "
+"can be selected."
+msgstr ""
+"Μπορούν να επιλεγούν μόνο εσωτερικοί χρήστες και χρήστες portal με "
+"ενεργοποιημένη την επιλογή «Διαθέσιμος για Συναντήσεις»."
+
+#. module: appointment_aestheticcenter
+#: model:ir.model,name:appointment_aestheticcenter.model_res_users
+msgid "User"
+msgstr "Χρήστης"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_appointment_type__staff_user_ids
+msgid "Users"
+msgstr "Χρήστες"

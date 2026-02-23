@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* appointment_aestheticcenter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e-20260206\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-23 11:47+0000\n"
+"PO-Revision-Date: 2026-02-23 11:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model,name:appointment_aestheticcenter.model_appointment_type
+msgid "Appointment Type"
+msgstr "Тип зустрічі"
+
+#. module: appointment_aestheticcenter
+#: model_terms:ir.ui.view,arch_db:appointment_aestheticcenter.res_users_view_form_inherit_appointment_aestheticcenter
+msgid "Appointments"
+msgstr "Зустрічі"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_res_users__available_for_appointments
+msgid "Available for Appointments"
+msgstr "Доступний для зустрічей"
+
+#. module: appointment_aestheticcenter
+#: code:addons/appointment_aestheticcenter/models/appointment_type.py:0
+#, python-format
+msgid "Only internal users and portal users marked as Available for Appointments can be selected."
+msgstr "Можна обирати лише внутрішніх користувачів і портальних користувачів із прапорцем \"Доступний для зустрічей\"."
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_appointment_type__display_name
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_res_users__display_name
+msgid "Display Name"
+msgstr "Відображувана назва"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,help:appointment_aestheticcenter.field_res_users__available_for_appointments
+msgid ""
+"Enable to allow this portal user to be selected in Appointments. Internal "
+"users remain available regardless of this option."
+msgstr ""
+"Увімкніть, щоб цього портального користувача можна було обирати у "
+"Зустрічах. Внутрішні користувачі залишаються доступними незалежно від цього "
+"прапорця."
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_appointment_type__id
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_res_users__id
+msgid "ID"
+msgstr "ID"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model,name:appointment_aestheticcenter.model_res_users
+msgid "User"
+msgstr "Користувач"
+
+#. module: appointment_aestheticcenter
+#: model:ir.model.fields,field_description:appointment_aestheticcenter.field_appointment_type__staff_user_ids
+msgid "Users"
+msgstr "Користувачі"
