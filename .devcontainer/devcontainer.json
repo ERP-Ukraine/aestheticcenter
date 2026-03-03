@@ -23,12 +23,12 @@
 				// uses the right one for terminals and tasks. For example, /bin/bash (or /bin/ash for Alpine).
 			},
 			"extensions": [
+				"charliermarsh.ruff",
 				"atlassian.atlascode",
 				"davidanson.vscode-markdownlint",
 				"dbaeumer.vscode-eslint",
 				"dotjoshjohnson.xml",
 				"eamodio.gitlens",
-				"hookyqr.beautify",
 				"kevinrose.vsc-python-indent",
 				"lextudio.restructuredtext",
 				"mechatroner.rainbow-csv",

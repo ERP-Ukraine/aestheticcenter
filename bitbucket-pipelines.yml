@@ -12,33 +12,16 @@ pipelines:
   branches:
     master:
       - step:
-          name: Build Production Image
-          services:
-            - docker
-          script:
-            - ./setup.sh
-            - ./build.sh
-      - step:
           name: Deploy to Production
           deployment: production
-          trigger: manual
           services:
             - docker
           script:
             - ./deploy-erpu-saas.sh production
     staging:
       - step:
-          name: Build Staging Image
-          services:
-            - docker
-          script:
-            - export WITH_TEST_DB="yes"
-            - ./setup.sh
-            - ./build.sh
-      - step:
           name: Deploy to Staging
           deployment: staging
-          trigger: manual
           services:
             - docker
           script:
