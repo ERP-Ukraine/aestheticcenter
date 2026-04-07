@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="appointment_type_view_form_inherit_equipment_availability" model="ir.ui.view">
+        <field name="name">appointment.type.form.inherit.equipment.availability</field>
+        <field name="model">appointment.type</field>
+        <field name="inherit_id" ref="appointment.appointment_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='right_details']/field[@name='resource_ids']" position="after">
+                <field
+                    name="maintenance_equipment_ids"
+                    widget="many2many_tags"
+                    domain="[('active', '=', True)]"
+                    options="{'no_quick_create': True, 'no_create_edit': True}"
+                    placeholder="Select Equipment..."
+                    groups="base.group_user"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

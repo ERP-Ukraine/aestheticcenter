@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="calendar_event_view_form_inherit_equipment_availability" model="ir.ui.view">
+        <field name="name">calendar.event.form.inherit.equipment.availability</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="appointment.calendar_event_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='resource_ids']" position="after">
+                <field name="appointment_type_maintenance_equipment_ids" invisible="1"/>
+                <field name="unavailable_maintenance_equipment_ids" invisible="1"/>
+                <field
+                    name="maintenance_equipment_id"
+                    options="{'no_create': True}"
+                    domain="[('id', 'in', appointment_type_maintenance_equipment_ids)]"
+                    invisible="not appointment_type_id"
+                />
+                <div class="alert alert-warning d-flex flex-wrap m-0 mb-3" role="alert" invisible="not unavailable_maintenance_equipment_ids">
+                    <span class="me-1">The following equipment is not available at the selected time</span>
+                    <field name="unavailable_maintenance_equipment_ids" widget="many2many_tags"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="calendar_event_view_form_gantt_booking_inherit_equipment_availability" model="ir.ui.view">
+        <field name="name">calendar.event.form.gantt.booking.inherit.equipment.availability</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="appointment.calendar_event_view_form_gantt_booking"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='resource_ids']" position="after">
+                <field name="appointment_type_maintenance_equipment_ids" invisible="1"/>
+                <field name="unavailable_maintenance_equipment_ids" invisible="1"/>
+                <field
+                    name="maintenance_equipment_id"
+                    nolabel="1"
+                    class="w-100 mb-0"
+                    placeholder="Equipment"
+                    options="{'no_create': True}"
+                    domain="[('id', 'in', appointment_type_maintenance_equipment_ids)]"
+                    invisible="not appointment_type_id"
+                />
+            </xpath>
+            <xpath expr="//div[hasclass('alert') and .//field[@name='unavailable_resource_ids']]" position="after">
+                <div class="alert alert-warning d-flex flex-wrap m-0 mb-3" role="alert" invisible="not unavailable_maintenance_equipment_ids">
+                    <span class="me-1">The following equipment is not available at the selected time</span>
+                    <field name="unavailable_maintenance_equipment_ids" widget="many2many_tags"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
