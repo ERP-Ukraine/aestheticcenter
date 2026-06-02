@@ -64,7 +64,6 @@
 	// "postCreateCommand": "apt-get update && apt-get install -y git",
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"remoteEnv": {
-		"MARICHKA_KEY": "",
 		"PGHOST": "pg13odoo",
 		"PGUSER": "odoo",
 		"PGPASSWORD": "odoo"

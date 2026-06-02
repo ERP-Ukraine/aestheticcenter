@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-readonly API_BASE_URL="${ERPUSAAS_API_URL:-https://erp.co.ua}"
+readonly API_BASE_URL="${ERPUSAAS_API_URL}"
 readonly MAX_WAIT_ATTEMPTS=60
 readonly POLL_INTERVAL=5
 
@@ -57,9 +57,9 @@ wait_for_build() {
 trigger_rebuild() {
     local env="$1"
     curl --fail -s -X POST \
-        -H "Authorization: Bearer $ERPUSAAS_DEPLOY_SECRET" \
-        -F "commit=$BITBUCKET_COMMIT" \
-        -F "build=$BITBUCKET_BUILD_NUMBER" \
+        -H "Authorization: Bearer ${ERPUSAAS_DEPLOY_SECRET}" \
+    -F "commit=$GITHUB_SHA" \
+    -F "build=$GITHUB_RUN_NUMBER" \
         "$API_BASE_URL/erpusaas/project/${ERPUSAAS_DEPLOY_PROJECT}/${env}/rebuild"
 }
 
@@ -78,7 +78,7 @@ case "$environment" in
         ;;
 esac
 
-if [ -n "$ERPUSAAS_DEPLOY_SECRET" ]; then
+if [ -n "${ERPUSAAS_DEPLOY_SECRET}" ]; then
     echo "ERPU SaaS Deploy to $environment"
 
     BUILD_ID=$(trigger_rebuild "$environment")
@@ -87,7 +87,7 @@ if [ -n "$ERPUSAAS_DEPLOY_SECRET" ]; then
         exit 1
     fi
 
-    wait_for_build "$BUILD_ID" "$ERPUSAAS_DEPLOY_SECRET"
+    wait_for_build "$BUILD_ID" "${ERPUSAAS_DEPLOY_SECRET}"
     exit $?
 else
     echo "Deploy secret not set. Skipping ERPU SaaS deployment." >&2

@@ -11,7 +11,7 @@ volumes:
 
 services:
   pg13odoo:
-    image: postgres:13.5
+    image: postgres:16.4
     environment:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
@@ -22,7 +22,7 @@ services:
 
   saas-odoo:
     tty: true
-    image: erpukraine/odoo-ee-erpu-saas:${O_MAJOR:-16}.0-latest
+    image: erpukraine/odoo-ee-erpu-saas:${O_MAJOR:-19}.0-latest
     env_file: .env
     environment:
       - PASSWORD=odoo
